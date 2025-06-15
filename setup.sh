@@ -43,8 +43,9 @@ done
 
 log "Sending synthetic test events"
 
-virtualenv env
+[ ! -d "env" ] && virtualenv env
 source env/bin/activate
+pip install -r requirements.txt
 python synthtest.py
-
+deactivate
 log "Setup complete. Login to the Splunk UI at http://127.0.0.1:8000/"
