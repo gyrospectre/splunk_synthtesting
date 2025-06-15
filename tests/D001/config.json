@@ -1,0 +1,6 @@
+{
+    "tests_rule": "D001 - AWS IAM Backdoor Users Keys",
+    "expected_within": 3600,
+    "index": "main",
+    "sourcetype": "aws:cloudtrail"
+}

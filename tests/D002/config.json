@@ -1,0 +1,6 @@
+{
+    "tests_rule": "D002 - MS365 Defender detected lateral movement",
+    "expected_within": 3600,
+    "index": "main",
+    "sourcetype": "ms365:defender:incident:alerts"
+}

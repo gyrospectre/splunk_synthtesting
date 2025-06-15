@@ -1,0 +1,133 @@
+[
+    {
+    "id": "da637789431774501659_-1621338217",
+    "providerAlertId": "da637789431774501659_-1621338217",
+    "incidentId": "5",
+    "status": "resolved",
+    "severity": "medium",
+    "classification": null,
+    "determination": null,
+    "serviceSource": "microsoftDefenderForEndpoint",
+    "detectionSource": "microsoft365Defender",
+    "detectorId": "ab3e5834-3d38-42c5-aaa6-c1cfc6c02882",
+    "tenantId": "24d3dca4-61f8-4b86-8e22-612b71d65386",
+    "title": "Possible lateral movement",
+    "description": "Lateral movement on another device was observed in close time proximity to a suspicious network event on this device. This could mean that an attacker is attempting to move laterally across devices to gather data or elevate privileges. This alert was triggered based on a Microsoft Defender for Endpoint alert.",
+    "recommendedActions": "A. Validate the alert.\r\n1. Investigate the process, its behaviors, and the endpoint involved in the original alert for suspicious activity.\r\n2. Check for other suspicious activities in the device timeline.\r\n3. Locate unfamiliar processes in the process tree. Check files for prevalence, their locations, and digital signatures.\r\n4. Submit relevant files for deep analysis and review file behaviors.\r\n5. Identify unusual system activity with system owners.\r\n\r\nB. Scope the incident. Find related device, network addresses, and files in the incident graph.\r\n\r\nC. Contain and mitigate the breach. Stop suspicious processes, isolate affected devices, decommission compromised accounts or reset passwords, block IP addresses and URLs, and install security updates.\r\n\r\nD. Contact your incident response team, or contact Microsoft support for investigation and remediation services.",
+    "category": "LateralMovement",
+    "assignedTo": "testUser@testUser@example.test",
+    "alertWebUrl": "https://security.microsoft.com/alerts/da637789431774501659_-1621338217?tid=24d3dca4-61f8-4b86-8e22-612b71d65386",
+    "incidentWebUrl": "https://security.microsoft.com/incidents/5?tid=24d3dca4-61f8-4b86-8e22-612b71d65386",
+    "actorDisplayName": null,
+    "threatDisplayName": null,
+    "threatFamilyName": null,
+    "mitreTechniques": [
+        "T1570",
+        "T1021.002",
+        "T1021.003",
+        "T1021.004",
+        "T1021.006"
+    ],
+    "createdDateTime": "2022-01-28T05:06:17.4503018Z",
+    "lastUpdateDateTime": "2022-01-28T07:11:29.6933333Z",
+    "resolvedDateTime": "2022-01-28T05:21:32.5866667Z",
+    "firstActivityDateTime": "2022-01-28T04:53:35.0699463Z",
+    "lastActivityDateTime": "2022-01-28T04:53:35.0699463Z",
+    "comments": [],
+    "evidence": [
+        {
+        "@odata.type": "#microsoft.graph.security.deviceEvidence",
+        "createdDateTime": "2022-01-28T05:06:17.51Z",
+        "evidenceRole": "impacted",
+        "verdict": "unknown",
+        "remediationStatus": "none",
+        "remediationStatusDetails": null,
+        "firstSeenDateTime": "2022-01-28T01:15:01.628Z",
+        "mdeDeviceId": "12345testmdeDeviceid",
+        "azureAdDeviceId": null,
+        "deviceDnsName": "testHost.test",
+        "osPlatform": "Windows10",
+        "osBuild": 17763,
+        "version": "1809",
+        "healthStatus": "active",
+        "riskScore": "high",
+        "rbacGroupId": 0,
+        "rbacGroupName": null,
+        "onboardingStatus": "onboarded",
+        "defenderAvStatus": "updated",
+        "loggedOnUsers": [
+            {
+            "accountName": "testUser",
+            "domainName": "MPRTDEV"
+            }
+        ]
+        },
+        {
+        "@odata.type": "#microsoft.graph.security.processEvidence",
+        "createdDateTime": "2022-01-28T05:06:17.51Z",
+        "evidenceRole": "related",
+        "verdict": "unknown",
+        "remediationStatus": "none",
+        "remediationStatusDetails": null,
+        "processId": 4,
+        "parentProcessId": 0,
+        "processCommandLine": "",
+        "processCreationDateTime": "2022-01-28T01:01:49.3539999Z",
+        "parentProcessCreationDateTime": null,
+        "detectionStatus": null,
+        "mdeDeviceId": null,
+        "parentProcessImageFile": null,
+        "imageFile": {
+            "sha1": "3791cf139c5f9e5c97e9c091f73e441b6a9bbd30",
+            "sha256": "e2f1857de3560a5237ca7ea661fc3688715bbbf6baa483511d49baac4ce1acf9",
+            "fileName": "System",
+            "filePath": "c:\\windows\\system32\\ntoskrnl.exe",
+            "fileSize": null,
+            "filePublisher": null,
+            "signer": null,
+            "issuer": null
+        },
+        "userAccount": {
+            "accountName": "system",
+            "domainName": null,
+            "userSid": "S-1-1-1",
+            "azureAdUserId": null,
+            "userPrincipalName": null
+        }
+        },
+        {
+        "@odata.type": "#microsoft.graph.security.ipEvidence",
+        "createdDateTime": "2022-01-28T05:06:17.51Z",
+        "evidenceRole": "related",
+        "verdict": "unknown",
+        "remediationStatus": "none",
+        "remediationStatusDetails": null,
+        "ipAddress": "10.0.0.5"
+        },
+        {
+        "@odata.type": "#microsoft.graph.security.urlEvidence",
+        "createdDateTime": "2022-01-28T05:06:17.51Z",
+        "evidenceRole": "related",
+        "verdict": "unknown",
+        "remediationStatus": "none",
+        "remediationStatusDetails": null,
+        "url": "mprtdev-win10b"
+        },
+        {
+        "@odata.type": "#microsoft.graph.security.userEvidence",
+        "createdDateTime": "2022-01-28T05:06:17.51Z",
+        "evidenceRole": "impacted",
+        "verdict": "unknown",
+        "remediationStatus": "none",
+        "remediationStatusDetails": null,
+        "userAccount": {
+            "accountName": null,
+            "domainName": null,
+            "userSid": null,
+            "azureAdUserId": null,
+            "userPrincipalName": null
+        }
+        }
+    ]
+    }
+]
