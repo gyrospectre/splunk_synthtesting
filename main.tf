@@ -45,7 +45,7 @@ resource "splunk_saved_searches" "test_results" {
         (index="synthtest" AND sourcetype="test_run") OR index="alerts"
         | eval rule=coalesce(search_name, tests_rule) 
         | eval test_time=if(index="synthtest",_time,null())
-        | stats values(index) as indexes earliest(info_max_time) as alert_time earliest(test_time) as test_time values(expected_within) as expected_within latest(test_time) as most_recent_test by test_id,rule
+        | stats values(index) as indexes earliest(info_max_time) as alert_time earliest(test_time) as test_time values(expected_within) as expected_within latest(test_time) as most_recent_test values(tactics) as tactics values(techniques) as techniques by test_id,rule
         | convert num(alert_time)
         | convert num(test_time)
         | eval latency=tostring(round(alert_time-test_time), "duration")
