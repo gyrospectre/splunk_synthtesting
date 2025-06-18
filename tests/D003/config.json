@@ -1,0 +1,6 @@
+{
+    "tests_rule": "D003 - Successful Attempt to Download EC2 Instance User Data",
+    "expected_within": 1800,
+    "index": "main",
+    "sourcetype": "aws:cloudtrail"
+}
