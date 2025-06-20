@@ -1,0 +1,133 @@
+<dashboard version="1.1" theme="light">
+  <label>Detection Testing Overview</label>
+  <row>
+    <panel depends="$dummy$">
+      <table>
+        <search>
+          <query>| rest "/services/saved/searches" | where title="Collect Synth Test Results" | fields next_scheduled_time</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+          <done>
+            <set token="next_time">$result.next_scheduled_time$</set>
+          </done>
+        </search>
+      </table>
+    </panel>
+    <panel>
+      <title>Latest Test Results</title>
+      <chart>
+        <search>
+          <query>index=synthtest sourcetype=test_result | stats count by status</query>
+          <earliest>-48h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="charting.fieldColors">{"Passing": #44D044, "Failing": #E10B00}</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Test Results Over Time</title>
+      <chart>
+        <search>
+          <query>index=synthtest sourcetype=test_result | timechart count by status</query>
+          <earliest>-5d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.fieldColors">{"Passing": #44D044, "Failing": #E10B00}</option>
+        <option name="height">150</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Rules Tested in Last Run</title>
+      <single>
+        <search>
+          <query>index=synthtest sourcetype=test_result | stats dc(rule)</query>
+          <earliest>-48h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+      </single>
+    </panel>
+    <panel>
+      <title>New Results In</title>
+      <single>
+        <search>
+          <query>| rest "/services/saved/searches" | where title="Collect Synth Test Results" | table title next_scheduled_time | eval next=strptime(next_scheduled_time,"%Y-%m-%d %H:%M:%S %Z")  | eval timediff=(next-now())/3600| fields timediff</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="numberPrecision">0.00</option>
+        <option name="rangeColors">["0x53a051","0x0877a6","0xf8be34","0xf1813f","0xdc4e41"]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="underLabel">($next_time$)</option>
+        <option name="unit">hrs</option>
+        <option name="useColors">0</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Most Recent Results</title>
+        <search>
+          <query>(index="synthtest" AND sourcetype="test_result") 
+| stats values(status) as status latest(_time) as latest_test by rule 
+| eval latest_test=strftime(latest_test,"%m/%d/%y %H:%M:%S") 
+| appendcols 
+    [ search index="synthtest" sourcetype="test_result" status=Passing 
+    | stats latest(_time) as last_success by rule ] 
+| eval last_success=strftime(last_success,"%m/%d/%y %H:%M:%S") 
+| fillnull last_success value="Never"</query>
+          <earliest>-48h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <viz type="mitre_attck_heatmap.mitre_attck_heatmap">
+        <title>MITRE ATT&amp;CK® - Passing Tests by Techique</title>
+        <search>
+          <query>index=synthtest sourcetype=test_result status=Passing | eval mitre_technique = upper(split(techniques, ",")) | mvexpand mitre_technique | stats count by mitre_technique</query>
+          <earliest>-48h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.animate">no</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.display">id</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.endVal">3</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.hideNull">no</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.showSearchBar">no</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.showSubTechniques">no</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.sortKey">data-id</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.sortOrder">desc</option>
+        <option name="mitre_attck_heatmap.mitre_attck_heatmap.theme">light</option>
+        <option name="refresh.display">progressbar</option>
+      </viz>
+    </panel>
+  </row>
+</dashboard>
