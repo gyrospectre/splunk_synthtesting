@@ -43,7 +43,7 @@ done
 
 log "Sending synthetic test events"
 
-[ ! -d "env" ] && virtualenv env
+[ ! -d "env" ] && python -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 python synthtest.py

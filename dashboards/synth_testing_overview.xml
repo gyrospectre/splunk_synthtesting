@@ -85,7 +85,7 @@
         <title>Most Recent Results</title>
         <search>
           <query>(index="synthtest" AND sourcetype="test_result") 
-| stats values(status) as status latest(_time) as latest_test by rule 
+| stats last(status) as status latest(_time) as latest_test by rule 
 | eval latest_test=strftime(latest_test,"%m/%d/%y %H:%M:%S") 
 | appendcols 
     [ search index="synthtest" sourcetype="test_result" status=Passing 
