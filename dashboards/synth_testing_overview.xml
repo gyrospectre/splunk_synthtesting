@@ -110,7 +110,7 @@
   <row>
     <panel>
       <viz type="mitre_attck_heatmap.mitre_attck_heatmap">
-        <title>MITRE ATT&amp;CK® - Passing Tests by Techique</title>
+        <title>MITRE ATT&amp;CK® - Passing Tests by Technique</title>
         <search>
           <query>index=synthtest sourcetype=test_result status=Passing | eval mitre_technique = upper(split(techniques, ",")) | mvexpand mitre_technique | stats count by mitre_technique</query>
           <earliest>-48h</earliest>
