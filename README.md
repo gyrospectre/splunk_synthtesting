@@ -9,7 +9,7 @@ A sandbox environment that implements integration testing for threat detection r
 
 If you're on a Linux/MacOS based system, `setup.sh` should do most of the setup work for you. It will spin up a local Splunk instance in Docker, configure everything, and send in an initial set of synthetic events.
 
-You'll need to have requires Python3, Docker and Terraform installed before running it.
+You'll need to have Python3, Docker and Terraform installed before running it.
 
 Once done, you can login to the Splunk UI at http://127.0.0.1:8000/ with a username of *"admin"* and the password you specified when running the script.
 
